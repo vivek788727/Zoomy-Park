@@ -25,14 +25,19 @@ jobs:
           distribution: temurin
           java-version: 21
 
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
       - name: Install dependencies & build web bundle
         run: |
-          npm install
+          npm install --legacy-peer-deps
           npm run build
 
       - name: Add Capacitor Android platform & sync
         run: |
-          npx cap add android
+          if [ ! -d android ]; then
+            npx cap add android
+          fi
           npx cap sync android
 
       - name: Inject Google AdMob Test App ID into AndroidManifest
@@ -54,6 +59,7 @@ jobs:
         working-directory: android
         run: |
           chmod +x gradlew
+          yes | sdkmanager --licenses || true
           ./gradlew assembleDebug
 
       - name: Upload APK Artifact
