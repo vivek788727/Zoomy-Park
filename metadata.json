@@ -1,0 +1,6 @@
+{
+  "name": "Zoomy Park",
+  "description": "A bright, joyful endless car racing game for small kids with simple touch controls, cheerful sound effects, and instant pit-crew cheers.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

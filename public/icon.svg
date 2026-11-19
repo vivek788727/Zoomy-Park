@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#0EA5E9" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="96" fill="url(#sky)" />
+  <rect x="0" y="340" width="512" height="172" fill="#22C55E" />
+  <rect x="136" y="0" width="240" height="512" fill="#334155" />
+  <rect x="248" y="32" width="16" height="88" rx="8" fill="#F8FAFC" />
+  <rect x="248" y="164" width="16" height="88" rx="8" fill="#F8FAFC" />
+  <rect x="248" y="392" width="16" height="88" rx="8" fill="#F8FAFC" />
+  <!-- Wheels -->
+  <rect x="164" y="168" width="24" height="52" rx="10" fill="#0F172A" />
+  <rect x="324" y="168" width="24" height="52" rx="10" fill="#0F172A" />
+  <rect x="164" y="292" width="24" height="52" rx="10" fill="#0F172A" />
+  <rect x="324" y="292" width="24" height="52" rx="10" fill="#0F172A" />
+  <!-- Red Rocket Car -->
+  <rect x="180" y="136" width="152" height="240" rx="46" fill="#EF4444" stroke="#0F172A" stroke-width="10" />
+  <rect x="238" y="144" width="36" height="224" rx="10" fill="#FACC15" />
+  <path d="M204 202 C204 176, 308 176, 308 202 L298 242 L214 242 Z" fill="#BAE6FD" stroke="#0F172A" stroke-width="8" />
+  <rect x="206" y="238" width="100" height="82" rx="22" fill="#FCA5A5" stroke="#0F172A" stroke-width="8" />
+  <ellipse cx="206" cy="158" rx="12" ry="9" fill="#FEF08A" />
+  <ellipse cx="306" cy="158" rx="12" ry="9" fill="#FEF08A" />
+</svg>
