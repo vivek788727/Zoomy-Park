@@ -12,10 +12,11 @@ import {
   Zap,
 } from 'lucide-react';
 import {
-  hideMenuBanner,
   initializeAdMob,
-  maybeShowBetweenRaceInterstitial,
-  showMenuBanner,
+  isNativeAndroidOrIOS,
+  preloadInterstitial,
+  showGameOverInterstitial,
+  showTopBanner,
 } from './ads/admob';
 import { soundEngine } from './audio/soundEngine';
 import {
@@ -117,6 +118,7 @@ export default function App() {
 
   useEffect(() => {
     void initializeAdMob();
+    void showTopBanner();
     return () => {
       if (cheerTimerRef.current) window.clearTimeout(cheerTimerRef.current);
     };
@@ -124,9 +126,7 @@ export default function App() {
 
   useEffect(() => {
     if (gameState === 'PLAYING') {
-      void hideMenuBanner();
-    } else {
-      void showMenuBanner();
+      void preloadInterstitial();
     }
   }, [gameState]);
 
@@ -173,7 +173,7 @@ export default function App() {
       setRunResult({ stars: finalStars, distance: finalDistance, zoneName });
       setGameState('GAME_OVER');
       void fetchCheer('gameover', finalStars, finalDistance, zoneName, selectedCar.name);
-      void maybeShowBetweenRaceInterstitial();
+      void showGameOverInterstitial();
     },
     [fetchCheer, selectedCar.name]
   );
@@ -246,8 +246,8 @@ export default function App() {
             <div className="absolute inset-0 bg-gradient-to-b from-sky-900/15 via-transparent to-slate-950/55" />
           </div>
 
-          {/* Top-left Install button + Top-right sound button */}
-          <div className="relative z-10 flex items-center justify-between p-4 sm:p-6">
+          {/* Top-left Install button + Top-right sound button (extra top clearance when native banner active) */}
+          <div className={`relative z-10 flex items-center justify-between p-4 sm:p-6 ${isNativeAndroidOrIOS() ? 'pt-16 sm:pt-18' : ''}`}>
             <div>
               <PWAInstallButton />
             </div>
@@ -326,7 +326,7 @@ export default function App() {
 
       {/* ACTIVE PLAY HUD (Pointer-events-none wrapper, no backdrop-filter over canvas, >= 85% clear!) */}
       {gameState === 'PLAYING' && (
-        <div className="absolute inset-0 z-10 pointer-events-none flex flex-col justify-between p-3 sm:p-5">
+        <div className={`absolute inset-0 z-10 pointer-events-none flex flex-col justify-between p-3 sm:p-5 ${isNativeAndroidOrIOS() ? 'pt-16 sm:pt-18' : ''}`}>
           {/* Top Perimeter HUD Bar */}
           <div className="flex items-start justify-between gap-3">
             {/* Top-Left: Hearts + Stars + Distance/Zone */}

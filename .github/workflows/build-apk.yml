@@ -7,6 +7,9 @@ on:
       - main
       - master
 
+env:
+  ADMOB_APP_ID: ca-app-pub-2914220555628785~8424356209
+
 jobs:
   build-apk:
     runs-on: ubuntu-latest
@@ -43,16 +46,17 @@ jobs:
           fi
           npx cap sync android
 
-      - name: Inject Google AdMob Test App ID into AndroidManifest
+      - name: Inject Google AdMob App ID into AndroidManifest
         run: |
           node --input-type=module -e '
             import fs from "fs";
             const file = "android/app/src/main/AndroidManifest.xml";
+            const appId = process.env.ADMOB_APP_ID;
             let xml = fs.readFileSync(file, "utf8");
             if (!xml.includes("com.google.android.gms.ads.APPLICATION_ID")) {
               xml = xml.replace(
                 "</application>",
-                `    <meta-data\n            android:name="com.google.android.gms.ads.APPLICATION_ID"\n            android:value="ca-app-pub-3940256099942544~3347511713" />\n    </application>`
+                `    <meta-data\n            android:name="com.google.android.gms.ads.APPLICATION_ID"\n            android:value="${appId}" />\n    </application>`
               );
               fs.writeFileSync(file, xml);
             }
